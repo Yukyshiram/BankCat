@@ -14,8 +14,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Compile main.c
         run: gcc main.c -o main
-      - name: Run main
-        run: ./main
+      - name: Run main with exit option
+        # Ejecuta directamente la opción "7" para terminar el programa
+        run: echo "7" | ./main
       - name: make
         run: make
       - name: make check
