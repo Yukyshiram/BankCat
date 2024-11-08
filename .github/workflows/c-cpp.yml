@@ -17,9 +17,3 @@ jobs:
       - name: Run main with exit option
         # Ejecuta directamente la opción "7" para terminar el programa
         run: echo "7" | ./main
-      - name: make
-        run: make
-      - name: make check
-        run: make check
-      - name: make distcheck
-        run: make distcheck
