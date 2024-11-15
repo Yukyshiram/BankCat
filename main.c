@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include < stdlib.h>
 
 #include "opcion1.h"
 #include "opcion2.h"
@@ -13,6 +14,19 @@ char celular[11];
 char numeroTarjeta[17];
 char nip[5];
 float saldo = 0.0;
+
+
+
+void mostrarGatitos() {
+system ( "color 02" );
+    printf("      /\\_/\\       /\\_/\\\n");
+    printf("     ( o.o )     ( o.o )\n");
+    printf("      > ^ <       > ^ <\n");
+    printf("\n");
+    printf("  ¡Bienvenido a MIAU BANK, elija la operación a realizar!\n\n");
+
+    system ( "color 07");
+}
 
 int main() {
     int opcion;
