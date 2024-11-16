@@ -13,13 +13,25 @@ void transferirDinero() {
     char confirmacion;
 
     while (1) {
-        printf("Ingrese su número de celular: ");
-        scanf("%s", celularInput);
+        printf("\n          -----| TRANSFERIR DINERO |----- \n");
 
-        printf("Ingrese su NIP: ");
-        scanf("%s", nipInput);
+        do {
+            printf("\n -->Ingrese su celular (10 digitos): ");
+            scanf("%s", celularInput);
+            if (!validarEntradaNumerica(celularInput, 10)) {
+                printf("\nCelular invalido. Solo se aceptan 10 digitos numericos.\n");
+            }
+        } while (!validarEntradaNumerica(celularInput, 10));
 
-        if (strcmp(celularInput, celular) == 0 && strcmp(nipInput, nip) == 0) {
+        do {
+            printf("\n -->Ingrese su NIP (4 digitos): ");
+            scanf("%s", nipInput);
+            if (!validarEntradaNumerica(nipInput, 4)) {
+                printf("NIP invalido. Solo se aceptan 4 digitos numericos.\n");
+            }
+        } while (!validarEntradaNumerica(nipInput, 4));
+
+        if (strcmp(celularInput, celular) == 0 && strcmp(nipInput, nip) == 0) { //Si ambas comparaciones devuelven 0, significa que las cadenas son iguales.
             printf("Datos correctos.\n");
             printf("Bienvenido %s %s\n", nombre, apellidos);
             printf("Saldo disponible: %.2f\n", saldo);
@@ -30,23 +42,42 @@ void transferirDinero() {
     }
 
     while (1) {
-        printf("Ingrese el nombre de la persona a la que va a transferir: ");
-        scanf(" %[^\n]", nombreDestinatario);
+        char entrada[50];
 
-        printf("Ingrese el número de tarjeta del destinatario (16 dígitos): ");
-        scanf("%s", tarjetaDestinatario);
+        do {
+            printf("\n -->Ingrese el nombre de la persona a la que va a transferir: ");
+            scanf("%s", nombreDestinatario);
+            if (!validarNombre(nombreDestinatario)) {
+                printf("\nNombre invalido. No debe contener numeros y debe tener al menos 3 caracteres.\n");
+            }
+        } while (!validarNombre(nombreDestinatario));
 
-        printf("Ingrese el monto a transferir: ");
-        scanf("%f", &monto);
+        do {
+            printf("\n -->Ingrese el n%cmero de tarjeta del destinatario (16 digitos): ", 163);
+            scanf("%s", tarjetaDestinatario);
+            if (!validarEntradaNumerica(tarjetaDestinatario, 16)) {
+                printf("\nNumero de tarjeta invalido. Solo se aceptan 16 digitos numericos.\n");
+            }
+        } while (!validarEntradaNumerica(tarjetaDestinatario, 16));
+
+        printf(" -->Ingrese el monto a transferir: ");
+        scanf("%f", &entrada);
+
+        if (!validarNumerico(entrada)) { // Validar si la entrada es numérica
+            printf("Solo se permiten n%cmeros. Intente nuevamente.\n", 163);
+            continue; // Regresar al inicio del ciclo
+        }
+        // Convertir la entrada a float
+        monto = atof(entrada);
 
         // Verificar si el monto a transferir es válido
         if (monto > saldo) {
-            printf("Error: El monto a transferir excede el saldo disponible (%.2f).\n", saldo);
-            printf("Por favor ingrese un monto válido.\n");
+            printf("    -----| Error: El monto a transferir excede el saldo disponible (%.2f).\n", saldo);
+            printf("    -----| Por favor ingrese un monto valido.\n");
         } else if (monto <= 0) {
             printf("El monto debe ser mayor a cero. Intente nuevamente.\n");
         } else {
-            printf("Monto válido.\n");
+            printf("\n    -----| Monto valido.\n");
             break;
         }
     }
@@ -58,19 +89,19 @@ void transferirDinero() {
         if (confirmacion == 'S' || confirmacion == 's') {
             // Realizar la transferencia y actualizar el saldo
 
-            printf("Saldo antes de la transferencia: %.2f\n", saldo);
+            printf("\n\nSaldo antes de la transferencia: %.2f\n", saldo);
             saldo -= monto;
-            printf("Transferencia exitosa.\n");
+            printf("\nTransferencia exitosa.\n");
             printf("Transferiste %.2f a %s (Tarjeta: %s).\n", monto, nombreDestinatario, tarjetaDestinatario);
-            printf("Nuevo saldo: %.2f\n", saldo);
+            printf("Nuevo saldo: %.2f\n\n", saldo);
             break;
         } else if (confirmacion == 'N' || confirmacion == 'n') {
             printf("Por favor ingrese nuevamente todos los datos.\n");
             return transferirDinero();  // Reiniciar el proceso si el usuario decide modificar los datos
         } else {
-            printf("Opción no válida. Intente nuevamente.\n");
+            printf("Opcion no valida. Intente nuevamente.\n");
         }
     }
 
-    printf("Regresando al menú principal...\n");
+    printf("Regresando al men%c principal...\n", 163);
 }

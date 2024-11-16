@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
 
 #include "opcion1.h"
 #include "opcion2.h"
@@ -7,17 +9,26 @@
 #include "opcion5.h"
 #include "opcion6.h"
 
-char nombre[50];
-char apellidos[50];
-char celular[11];
-char numeroTarjeta[17];
-char nip[5];
+#include "cats.h"
+
+char nombre[50] = "Invitado";
+char apellidos[50] = "Cat";
+char celular[11] = "0000000000";
+char numeroTarjeta[17] = "1111111111111111";
+char nip[5] = "1234";
 float saldo = 0.0;
+
+/*El buffer es una zona de memoria temporal que se utiliza para almacenar datos antes de que se procesen o se transfieran. Es como una "sala de espera" donde los datos se acumulan hasta que estén listos para ser usados. */
+void limpiarBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF); // Vacía el búfer
+}
 
 int main() {
     int opcion;
 
     do {
+        mostrarGatitos();
         printf("Menu:\n");
         printf("1. Registrar a un nuevo cliente\n");
         printf("2. Depositar dinero a cuenta propia\n");
@@ -26,9 +37,16 @@ int main() {
         printf("5. Recargar tiempo aire\n");
         printf("6. Cambiar NIP\n");
         printf("7. Salir\n");
-        printf("Ingrese una opcion: ");
+        printf("\nIngrese una opcion: ");
         
-        scanf("%d", &opcion);
+
+        /* Este lo agregamos porque cuando el usuario ingresaba una letra el bucle se hacia infinito */
+        if (scanf("%d", &opcion) != 1) {
+    
+            printf("\n---->| Entrada no v%clida. Por favor, ingrese un n%cmero. |<----\n\n", 160, 163); // á, ú luego no me acuerdo
+            limpiarBuffer();
+            continue;
+        }
 
         switch(opcion) {
             case 1:
@@ -47,17 +65,18 @@ int main() {
                 recargarTiempoAire();
                 break;
             case 6:
-                printf("Opcion 6 seleccionada\n");
+                cambiarNIP();
                 break;
             case 7:
                 printf("Saliendo del programa...\n");
                 break;
             default:
-                printf("Opcion no valida. Intente de nuevo.\n");
+                printf("\n---->| Opcion no v%clida. Intente nuevamente |<----\n\n", 160);
                 break;
         }
     } while(opcion != 7);
 
-    printf("Gracias por usar nuestro servicio. Hasta luego!\n");
+    seYouNextTime();
+    getch();
     return 0;
 }
