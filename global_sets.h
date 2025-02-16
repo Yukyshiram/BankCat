@@ -1,5 +1,5 @@
-#ifndef VARIABLES_GLOBALES_H
-#define VARIABLES_GLOBALES_H
+#ifndef VARIABLES_GLOBALES_H 
+#define VARIABLES_GLOBALES_H 
 
 extern char nombre[50];
 extern char apellidos[50];
